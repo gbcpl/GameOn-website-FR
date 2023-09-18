@@ -18,12 +18,14 @@ const firstName = document.getElementById("first")
 const lastName = document.getElementById("last");
 const mail = document.getElementById("email");
 const date = document.getElementById("birthdate")
+const tournaments = document.getElementById("quantity");
 const submit = document.querySelector(".btn-submit");
 const form = document.getElementById("form");
 let paragraphFirst = document.getElementById("paragraphFirst");
 let paragraphLast = document.getElementById("paragraphLast");
 let paragraphMail = document.getElementById("paragraphMail");
-let paragraphDate = document.getElementById("paragraphDate")
+let paragraphDate = document.getElementById("paragraphDate");
+let paragraphTournaments = document.getElementById("paragraphTournaments");
 
 // launch modal event
 
@@ -66,7 +68,7 @@ function isFirstNameValid() {
       formFirstName.appendChild(paragraphFirst);
     }
 
-    // fill the paragraph created previousuly with the textContent method
+    // fill the paragraph created previously with the textContent method
     paragraphFirst.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
   } else {
 
@@ -169,6 +171,11 @@ function isBirthDateValid() {
   const year = newDate.getFullYear();
 
   if (dateValidator(date.value) && year <= currentYear) {
+
+    if (paragraphDate) {
+      paragraphDate.remove()
+    }
+
     date.style.borderWidth = "4px";
     date.style.borderColor = "green";
     dateValid = 1;
@@ -190,6 +197,43 @@ function isBirthDateValid() {
   }
 }
 
+// Verifcation of input of the tournaments played 
+
+tournaments.addEventListener("change", isTournamentsValid);
+let tournamentsValid = 0;
+
+function isTournamentsValid() {
+
+  // we test if tournaments value contains a number, if yes we validate the form
+
+  if (/\d/.test(tournaments.value)) {
+
+    if (paragraphTournaments) {
+      paragraphTournaments.remove()
+    }
+
+    tournaments.style.borderWidth = "4px";
+    tournaments.style.borderColor = "green";
+    tournamentsValid = 1;
+
+  }
+    else {
+    tournaments.style.borderWidth = "4px";
+    tournaments.style.borderColor = "red";
+
+    const formTournaments = document.getElementById("formTournaments");
+
+    if (!paragraphTournaments) {
+      paragraphTournaments = document.createElement("p");
+      paragraphTournaments.id = "paragraphTournaments";
+      formTournaments.appendChild(paragraphTournaments);
+    }
+
+    paragraphTournaments.textContent = "Veuillez entrer un nombre."
+
+  }
+}
+
 // Handling the submit button. 
 // preventDefault lets us bypass the html behaviour of the submit button
 // if all fields aren't valid, we throw an error, otherwise we close the modal, reset the variables, reset the form, and display another confirmation modal
@@ -197,17 +241,21 @@ function isBirthDateValid() {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0) {
+  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0) {
     alert("Veuillez remplir tous les champs");
   } else {
     closeModal();
     firstNameValid = 0;
     lastNameValid = 0;
     emailValid = 0;
+    dateValid = 0;
+    tournamentsValid = 0;
     form.reset();
     firstName.style.border = "none";
     lastName.style.border = "none";
     mail.style.border = "none";
+    date.style.border = "none";
+    tournaments.style.border = "none";
     confirm.style.display = "block";
   }
 });

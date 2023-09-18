@@ -564,6 +564,6 @@ footer {
   transform: rotate(-45deg);
 }
 
-#paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate {
+#paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate, #paragraphTournaments {
   font-size: 14px;
 }
