@@ -9,12 +9,21 @@ function editNav() {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+const confirm = document.querySelector(".modal-confirmation")
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelectorAll(".close");
+const closeConfirm = document.querySelectorAll(".close-confirm");
 const firstName = document.getElementById("first")
 const lastName = document.getElementById("last");
 const mail = document.getElementById("email");
+const date = document.getElementById("birthdate")
+const submit = document.querySelector(".btn-submit");
+const form = document.getElementById("form");
+let paragraphFirst = document.getElementById("paragraphFirst");
+let paragraphLast = document.getElementById("paragraphLast");
+let paragraphMail = document.getElementById("paragraphMail");
+let paragraphDate = document.getElementById("paragraphDate")
 
 // launch modal event
 
@@ -35,37 +44,180 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-// Variables for entry inputs
+// Handling the first name input of the form on change event
+// We create a variable that is equal 0 at default, and we pass it to 1 if the field is correctly filled by the user
+// We add some stylisization in case the field is correctly or incorrectly filled
 
-let first = "";
-let last = "";
-let email = "";
+firstName.addEventListener("change", isFirstNameValid);
+let firstNameValid = 0;
 
-// Receive entries
+function isFirstNameValid() {
+  if (firstName.value.length < 2) {
+    firstName.style.borderWidth = "4px";
+    firstName.style.borderColor = "red";
+    
+    // get the div formFirstName in order to add a paragraph under the input field if invalid
+    const formFirstName = document.getElementById("formFirstName");
+    
+    // if the paragraph for invalid first name isn't present, create it with a specified ID after the input field
+    if (!paragraphFirst) {
+      paragraphFirst = document.createElement("p");
+      paragraphFirst.id = "paragraphFirst";
+      formFirstName.appendChild(paragraphFirst);
+    }
 
-// get event for first name
+    // fill the paragraph created previousuly with the textContent method
+    paragraphFirst.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
+  } else {
 
-firstName.addEventListener("change", getFirstName);
+    // if the message for invalid first name is present, remove it
+    if (paragraphFirst) {
+      paragraphFirst.remove();
+    }
 
-function getFirstName() {
-  first =  firstName.value;
-  console.log(first);
-} 
+    firstName.style.borderWidth = "4px";
+    firstName.style.borderColor = "green";
+    firstNameValid = 1;
+  }
+}
 
-// get event fort last name
+// Handling the last name input
 
-lastName.addEventListener("change", getlastName);
+lastName.addEventListener("change", isLastNameValid);
+let lastNameValid = 0;
 
-function getlastName() {
-  last =  lastName.value;
-  console.log(last);
-} 
+function isLastNameValid() {
+  if (lastName.value.length == 0) {
+    lastName.style.borderWidth = "4px";
+    lastName.style.borderColor = "red";
 
-// get event fort mail
+    const formLastName = document.getElementById("formLastName");
 
-mail.addEventListener("change", getMail);
+    if (!paragraphLast) {
+      paragraphLast = document.createElement("p");
+      paragraphLast.id = "paragraphLast";
+      formLastName.appendChild(paragraphLast);
+    }
 
-function getMail() {
-  email =  mail.value;
-  console.log(email);
-} 
+    paragraphLast.textContent = "Veuillez entrer un nom de famille."
+  } else {
+
+    if (paragraphLast) {
+      paragraphLast.remove();
+    }
+
+    lastName.style.borderWidth = "4px";
+    lastName.style.borderColor = "green";
+    lastNameValid = 1;
+  }
+};
+
+// Handling the mail input with a regEx that we test thanks to the match method
+
+mail.addEventListener("change", isEmailValid);
+let emailValid = 0;
+
+function isEmailValid() {
+  let mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  if (mail.value.match(mailFormat)) {
+
+    if (paragraphMail) {
+      paragraphMail.remove()
+    }
+
+    mail.style.borderWidth = "4px";
+    mail.style.borderColor = "green";
+    emailValid = 1;
+  } else {
+    mail.style.borderWidth = "4px";
+    mail.style.borderColor = "red";
+
+    const formMail = document.getElementById("formMail");
+
+    if (!paragraphMail) {
+      paragraphMail = document.createElement("p");
+      paragraphMail.id = "paragraphMail";
+      formMail.appendChild(paragraphMail);
+    }
+
+    paragraphMail.textContent = "Veuillez entrer un email valide."
+  }
+}
+
+// Verification of the date
+
+date.addEventListener("change", isBirthDateValid);
+let dateValid = 0;
+
+// Creates the function to verify the date in the format YYYY/MM/DD 
+
+function dateValidator(dateStr) {
+  return !isNaN(new Date(dateStr));
+}
+
+// Handling the date with the function isBirthDateValid
+
+function isBirthDateValid() {
+
+  // We create two dates, one is the current date, the other being the birthdate entered by the user
+  let currentDate = new Date();
+  let newDate = new Date(date.value);
+
+  // two variables are created to compare the years in case the user enters a date > current year.
+
+  const currentYear = currentDate.getFullYear();
+  const year = newDate.getFullYear();
+
+  if (dateValidator(date.value) && year <= currentYear) {
+    date.style.borderWidth = "4px";
+    date.style.borderColor = "green";
+    dateValid = 1;
+
+  } else {
+
+    const formDate = document.getElementById("formDate");
+
+    if (!paragraphDate) {
+      paragraphDate = document.createElement("p");
+      paragraphDate.id = "paragraphDate";
+      formDate.appendChild(paragraphDate);
+    }
+
+    paragraphDate.textContent = "Veuillez entrer une date valide."
+
+    date.style.borderWidth = "4px";
+    date.style.borderColor = "red";
+  }
+}
+
+// Handling the submit button. 
+// preventDefault lets us bypass the html behaviour of the submit button
+// if all fields aren't valid, we throw an error, otherwise we close the modal, reset the variables, reset the form, and display another confirmation modal
+
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0) {
+    alert("Veuillez remplir tous les champs");
+  } else {
+    closeModal();
+    firstNameValid = 0;
+    lastNameValid = 0;
+    emailValid = 0;
+    form.reset();
+    firstName.style.border = "none";
+    lastName.style.border = "none";
+    mail.style.border = "none";
+    confirm.style.display = "block";
+  }
+});
+
+// Listening to the confirmation modal close button
+
+closeConfirm.forEach((btn) => btn.addEventListener("click", closeModalConfirm));
+
+// Exit confiirmation modal
+
+function closeModalConfirm() {
+  confirm.style.display = "none";
+}

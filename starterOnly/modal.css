@@ -527,3 +527,43 @@ footer {
   }
 }
 
+.modal-confirmation {
+  display: none;
+  z-index: 4;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 160px);
+  background-color: #232323;
+  padding: 50px 50px 50px 50px;
+  color: white;
+}
+
+.close-confirm {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 32px;
+  height: 32px;
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(0.7);
+}
+.close-confirm:before,
+.close-confirm:after {
+  position: absolute;
+  left: 15px;
+  content: " ";
+  height: 33px;
+  width: 3px;
+  background-color: #fff;
+}
+.close-confirm:before {
+  transform: rotate(45deg);
+}
+.close-confirm:after {
+  transform: rotate(-45deg);
+}
+
+#paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate {
+  font-size: 14px;
+}
