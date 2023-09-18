@@ -62,7 +62,7 @@ function isFirstNameValid() {
     const formFirstName = document.getElementById("formFirstName");
     
     // if the paragraph for invalid first name isn't present, create it with a specified ID after the input field
-    if (!paragraphFirst) {
+    if (!paragraphFirst || paragraphFirst == 0) {
       paragraphFirst = document.createElement("p");
       paragraphFirst.id = "paragraphFirst";
       formFirstName.appendChild(paragraphFirst);
@@ -75,6 +75,7 @@ function isFirstNameValid() {
     // if the message for invalid first name is present, remove it
     if (paragraphFirst) {
       paragraphFirst.remove();
+      paragraphFirst = 0;
     }
 
     firstName.style.borderWidth = "4px";
@@ -95,7 +96,7 @@ function isLastNameValid() {
 
     const formLastName = document.getElementById("formLastName");
 
-    if (!paragraphLast) {
+    if (!paragraphLast || paragraphLast == 0) {
       paragraphLast = document.createElement("p");
       paragraphLast.id = "paragraphLast";
       formLastName.appendChild(paragraphLast);
@@ -106,6 +107,7 @@ function isLastNameValid() {
 
     if (paragraphLast) {
       paragraphLast.remove();
+      paragraphLast = 0;
     }
 
     lastName.style.borderWidth = "4px";
@@ -124,7 +126,8 @@ function isEmailValid() {
   if (mail.value.match(mailFormat)) {
 
     if (paragraphMail) {
-      paragraphMail.remove()
+      paragraphMail.remove();
+      paragraphMail = 0;
     }
 
     mail.style.borderWidth = "4px";
@@ -136,7 +139,7 @@ function isEmailValid() {
 
     const formMail = document.getElementById("formMail");
 
-    if (!paragraphMail) {
+    if (!paragraphMail || paragraphMail == 0) {
       paragraphMail = document.createElement("p");
       paragraphMail.id = "paragraphMail";
       formMail.appendChild(paragraphMail);
@@ -174,6 +177,7 @@ function isBirthDateValid() {
 
     if (paragraphDate) {
       paragraphDate.remove()
+      paragraphDate = 0;
     }
 
     date.style.borderWidth = "4px";
@@ -184,7 +188,7 @@ function isBirthDateValid() {
 
     const formDate = document.getElementById("formDate");
 
-    if (!paragraphDate) {
+    if (!paragraphDate || paragraphDate == 0) {
       paragraphDate = document.createElement("p");
       paragraphDate.id = "paragraphDate";
       formDate.appendChild(paragraphDate);
@@ -209,7 +213,8 @@ function isTournamentsValid() {
   if (/\d/.test(tournaments.value)) {
 
     if (paragraphTournaments) {
-      paragraphTournaments.remove()
+      paragraphTournaments.remove();
+      paragraphTournaments = 0;
     }
 
     tournaments.style.borderWidth = "4px";
@@ -223,7 +228,7 @@ function isTournamentsValid() {
 
     const formTournaments = document.getElementById("formTournaments");
 
-    if (!paragraphTournaments) {
+    if (!paragraphTournaments || paragraphTournaments == 0) {
       paragraphTournaments = document.createElement("p");
       paragraphTournaments.id = "paragraphTournaments";
       formTournaments.appendChild(paragraphTournaments);
