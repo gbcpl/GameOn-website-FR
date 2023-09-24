@@ -1,8 +1,17 @@
+@font-face {
+  font-family: 'DM Sans';
+  src: url('DM_Sans/DMSans-Regular.woff2') format('woff2'),
+       url('DM_Sans/to/your/fonts/DMSans-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --font-default: "DM Sans", Arial, Helvetica, sans-serif;
   --font-slab: var(--font-default);
   --modal-duration: 0.8s;
 }
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -269,7 +278,7 @@ input[data-error]::after {
   transition: 0.3s;
   opacity: 0;
 }
-.checkbox-input {
+.checkbox-input, .checkbox2-input {
   display: none;
 }
 .checkbox-input:checked + .checkbox-label .checkbox-icon::after,
@@ -566,4 +575,5 @@ footer {
 
 #paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate, #paragraphTournaments {
   font-size: 14px;
+  color: red;
 }

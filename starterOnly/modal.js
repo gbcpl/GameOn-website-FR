@@ -19,6 +19,7 @@ const lastName = document.getElementById("last");
 const mail = document.getElementById("email");
 const date = document.getElementById("birthdate")
 const tournaments = document.getElementById("quantity");
+const locationTournament = document.querySelectorAll('input[name="location"]');
 const submit = document.querySelector(".btn-submit");
 const form = document.getElementById("form");
 let paragraphFirst = document.getElementById("paragraphFirst");
@@ -54,7 +55,7 @@ firstName.addEventListener("change", isFirstNameValid);
 let firstNameValid = 0;
 
 function isFirstNameValid() {
-  if (firstName.value.length < 2) {
+  if (firstName.value.length < 2 || /\d/.test(firstName.value)) {
     firstName.style.borderWidth = "4px";
     firstName.style.borderColor = "red";
     
@@ -239,6 +240,33 @@ function isTournamentsValid() {
   }
 }
 
+
+// Location of tournament
+
+let locationValid = 0;
+
+locationTournament.forEach((checkbox) => {
+  checkbox.addEventListener("change", isPlaceTournamentValid);
+});
+
+function isPlaceTournamentValid() {
+  let selectedLocation = "";
+
+  locationTournament.forEach((checkbox) => {
+    if (checkbox.checked) {
+      selectedLocation = checkbox.value;
+      locationValid = 1;
+    }
+  });
+}
+
+// Checkbox1
+
+
+// Checkbox2
+
+
+
 // Handling the submit button. 
 // preventDefault lets us bypass the html behaviour of the submit button
 // if all fields aren't valid, we throw an error, otherwise we close the modal, reset the variables, reset the form, and display another confirmation modal
@@ -246,7 +274,7 @@ function isTournamentsValid() {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0) {
+  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0 || locationValid == 0) {
     alert("Veuillez remplir tous les champs");
   } else {
     closeModal();
@@ -255,6 +283,7 @@ form.addEventListener("submit", (e) => {
     emailValid = 0;
     dateValid = 0;
     tournamentsValid = 0;
+    locationValid = 0;
     form.reset();
     firstName.style.border = "none";
     lastName.style.border = "none";
