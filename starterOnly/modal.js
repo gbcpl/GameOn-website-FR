@@ -20,6 +20,7 @@ const mail = document.getElementById("email");
 const date = document.getElementById("birthdate")
 const tournaments = document.getElementById("quantity");
 const locationTournament = document.querySelectorAll('input[name="location"]');
+const checkboxValidation = document.getElementById("checkbox1");
 const submit = document.querySelector(".btn-submit");
 const form = document.getElementById("form");
 let paragraphFirst = document.getElementById("paragraphFirst");
@@ -27,6 +28,7 @@ let paragraphLast = document.getElementById("paragraphLast");
 let paragraphMail = document.getElementById("paragraphMail");
 let paragraphDate = document.getElementById("paragraphDate");
 let paragraphTournaments = document.getElementById("paragraphTournaments");
+let paragraphUserValidation = document.getElementById("paragraphUserValidation")
 
 // launch modal event
 
@@ -91,7 +93,7 @@ lastName.addEventListener("change", isLastNameValid);
 let lastNameValid = 0;
 
 function isLastNameValid() {
-  if (lastName.value.length == 0) {
+  if (lastName.value.length < 2 || /\d/.test(lastName.value)) {
     lastName.style.borderWidth = "4px";
     lastName.style.borderColor = "red";
 
@@ -172,9 +174,13 @@ function isBirthDateValid() {
   // two variables are created to compare the years in case the user enters a date > current year.
 
   const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const currentDay = currentDate.getDay();
   const year = newDate.getFullYear();
+  const month = newDate.getMonth();
+  const day = newDate.getDay();
 
-  if (dateValidator(date.value) && year <= currentYear) {
+  if (dateValidator(date.value) && (currentYear - year >= 18)) {
 
     if (paragraphDate) {
       paragraphDate.remove()
@@ -250,22 +256,44 @@ locationTournament.forEach((checkbox) => {
 });
 
 function isPlaceTournamentValid() {
-  let selectedLocation = "";
 
   locationTournament.forEach((checkbox) => {
     if (checkbox.checked) {
-      selectedLocation = checkbox.value;
       locationValid = 1;
-    }
+    } 
   });
 }
 
 // Checkbox1
 
+let checkboxUserValid = 1;
 
-// Checkbox2
+checkboxValidation.addEventListener("click", isCheckBoxChecked);
 
+function isCheckBoxChecked() {
 
+  if (checkboxValidation.checked) {
+    if (paragraphUserValidation) {
+      paragraphUserValidation.remove();
+      paragraphUserValidation = 0;
+    }
+    checkboxUserValid = 1;
+  } else {
+
+    const formCheckConditions = document.getElementById("formCheckConditions");
+
+    if (!paragraphUserValidation || paragraphUserValidation == 0) {
+      paragraphUserValidation = document.createElement("p");
+      paragraphUserValidation.id = "paragraphUserValidation";
+      formCheckConditions.appendChild(paragraphUserValidation);
+    }
+
+    paragraphUserValidation.textContent = "Vous devez vérifier que vous acceptez les termes et conditions."
+    console.log("ici")
+    checkboxUserValid = 0;
+  }
+
+}
 
 // Handling the submit button. 
 // preventDefault lets us bypass the html behaviour of the submit button
@@ -274,7 +302,7 @@ function isPlaceTournamentValid() {
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0 || locationValid == 0) {
+  if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0 || locationValid == 0 || checkboxUserValid == 0) {
     alert("Veuillez remplir tous les champs");
   } else {
     closeModal();
@@ -284,6 +312,7 @@ form.addEventListener("submit", (e) => {
     dateValid = 0;
     tournamentsValid = 0;
     locationValid = 0;
+    checkboxUserValid = 0;
     form.reset();
     firstName.style.border = "none";
     lastName.style.border = "none";

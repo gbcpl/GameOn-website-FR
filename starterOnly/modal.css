@@ -508,7 +508,7 @@ footer {
     white-space: normal;
   }
   .hero-text {
-    width: unset;
+    width: 90%;
     font-size: 1.5rem;
   }
   .hero-img img {
@@ -545,6 +545,9 @@ footer {
   background-color: #232323;
   padding: 50px 50px 50px 50px;
   color: white;
+  margin: 5% auto;
+  width: 100%;
+  max-width: 500px;
 }
 
 .close-confirm {
@@ -573,7 +576,7 @@ footer {
   transform: rotate(-45deg);
 }
 
-#paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate, #paragraphTournaments {
+#paragraphFirst, #paragraphLast, #paragraphMail, #paragraphDate, #paragraphTournaments, #paragraphUserValidation {
   font-size: 14px;
   color: red;
 }
