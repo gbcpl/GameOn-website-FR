@@ -57,9 +57,10 @@ firstName.addEventListener("change", isFirstNameValid);
 let firstNameValid = 0;
 
 function isFirstNameValid() {
+  console.log(firstName.value);
   if (firstName.value.length < 2 || /\d/.test(firstName.value)) {
-    firstName.style.borderWidth = "4px";
-    firstName.style.borderColor = "red";
+    console.log("OK")
+    firstName.style.border = "solid 4px red";
     
     // get the div formFirstName in order to add a paragraph under the input field if invalid
     const formFirstName = document.getElementById("formFirstName");
@@ -74,15 +75,15 @@ function isFirstNameValid() {
     // fill the paragraph created previously with the textContent method
     paragraphFirst.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du nom.";
   } else {
-
+    console.log("KO")
     // if the message for invalid first name is present, remove it
     if (paragraphFirst) {
+      console.log("OKOK")
       paragraphFirst.remove();
       paragraphFirst = 0;
     }
 
-    firstName.style.borderWidth = "4px";
-    firstName.style.borderColor = "green";
+    firstName.style.border = "solid 4px green";
     firstNameValid = 1;
   }
 }
@@ -94,8 +95,7 @@ let lastNameValid = 0;
 
 function isLastNameValid() {
   if (lastName.value.length < 2 || /\d/.test(lastName.value)) {
-    lastName.style.borderWidth = "4px";
-    lastName.style.borderColor = "red";
+    lastName.style.border = "solid 4px red";
 
     const formLastName = document.getElementById("formLastName");
 
@@ -113,8 +113,7 @@ function isLastNameValid() {
       paragraphLast = 0;
     }
 
-    lastName.style.borderWidth = "4px";
-    lastName.style.borderColor = "green";
+    lastName.style.border = "solid 4px green";
     lastNameValid = 1;
   }
 };
@@ -133,12 +132,10 @@ function isEmailValid() {
       paragraphMail = 0;
     }
 
-    mail.style.borderWidth = "4px";
-    mail.style.borderColor = "green";
+    mail.style.border = "solid 4px green";
     emailValid = 1;
   } else {
-    mail.style.borderWidth = "4px";
-    mail.style.borderColor = "red";
+    mail.style.border = "solid 4px red";
 
     const formMail = document.getElementById("formMail");
 
@@ -187,8 +184,7 @@ function isBirthDateValid() {
       paragraphDate = 0;
     }
 
-    date.style.borderWidth = "4px";
-    date.style.borderColor = "green";
+    date.style.border = "solid 4px green";
     dateValid = 1;
 
   } else {
@@ -203,8 +199,7 @@ function isBirthDateValid() {
 
     paragraphDate.textContent = "Veuillez entrer une date valide."
 
-    date.style.borderWidth = "4px";
-    date.style.borderColor = "red";
+    date.style.border = "solid 4px red";
   }
 }
 
@@ -224,14 +219,12 @@ function isTournamentsValid() {
       paragraphTournaments = 0;
     }
 
-    tournaments.style.borderWidth = "4px";
-    tournaments.style.borderColor = "green";
+    tournaments.style.border = "solid 4px green";
     tournamentsValid = 1;
 
   }
     else {
-    tournaments.style.borderWidth = "4px";
-    tournaments.style.borderColor = "red";
+      tournaments.style.border = "solid 4px red";
 
     const formTournaments = document.getElementById("formTournaments");
 
@@ -303,6 +296,7 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
 
   if (firstNameValid == 0 || lastNameValid == 0 || emailValid == 0 || dateValid == 0 || tournamentsValid == 0 || locationValid == 0 || checkboxUserValid == 0) {
+    console.log(firstNameValid, lastNameValid, emailValid, dateValid, tournamentsValid, locationValid, checkboxUserValid)
     alert("Veuillez remplir tous les champs");
   } else {
     closeModal();
@@ -312,7 +306,7 @@ form.addEventListener("submit", (e) => {
     dateValid = 0;
     tournamentsValid = 0;
     locationValid = 0;
-    checkboxUserValid = 0;
+    checkboxUserValid = 1;
     form.reset();
     firstName.style.border = "none";
     lastName.style.border = "none";
