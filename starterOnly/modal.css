@@ -547,6 +547,8 @@ footer {
 
 .modal-confirmation {
   display: none;
+  flex-direction: column;
+  justify-content: space-between;
   z-index: 4;
   position: fixed;
   top: 0%;
@@ -557,8 +559,23 @@ footer {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  height: 850px;
+  height: 739px;
   border-radius: 10px;
+}
+
+.modal-confirmation p {
+  margin-top: auto;
+  margin-bottom: auto;
+  text-align: center;
+  font-weight: 400;
+  font-size: 36px;
+}
+
+@media screen and (max-width: 800px) {
+  .modal-confirmation {
+    left: 0%;
+    height: 756px;
+  }
 }
 
 .close-confirm {

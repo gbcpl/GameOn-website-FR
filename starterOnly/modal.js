@@ -14,6 +14,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelectorAll(".close");
 const closeConfirm = document.querySelectorAll(".close-confirm");
+const closeButton = document.getElementById("close-modal-confirm");
 const firstName = document.getElementById("first")
 const lastName = document.getElementById("last");
 const mail = document.getElementById("email");
@@ -313,7 +314,7 @@ form.addEventListener("submit", (e) => {
     mail.style.border = "none";
     date.style.border = "none";
     tournaments.style.border = "none";
-    confirm.style.display = "block";
+    confirm.style.display = "flex";
   }
 });
 
@@ -324,5 +325,11 @@ closeConfirm.forEach((btn) => btn.addEventListener("click", closeModalConfirm));
 // Exit confiirmation modal
 
 function closeModalConfirm() {
+  confirm.style.display = "none";
+}
+
+closeButton.addEventListener("click", closeModalButton);
+
+function closeModalButton() {
   confirm.style.display = "none";
 }
