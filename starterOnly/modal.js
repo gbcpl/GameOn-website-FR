@@ -315,6 +315,8 @@ form.addEventListener("submit", (e) => {
     date.style.border = "none";
     tournaments.style.border = "none";
     confirm.style.display = "flex";
+    modalbg.style.display = "block";
+
   }
 });
 
@@ -326,10 +328,13 @@ closeConfirm.forEach((btn) => btn.addEventListener("click", closeModalConfirm));
 
 function closeModalConfirm() {
   confirm.style.display = "none";
+  modalbg.style.display = "none";
+  
 }
 
 closeButton.addEventListener("click", closeModalButton);
 
 function closeModalButton() {
   confirm.style.display = "none";
+  modalbg.style.display = "none";
 }

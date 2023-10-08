@@ -106,7 +106,6 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
   }
 } 
 
@@ -494,6 +493,9 @@ footer {
   margin: 0 20px;
 }
 @media screen and (max-width: 800px) {
+  .content {
+    margin-top: 70px;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -561,6 +563,11 @@ footer {
   max-width: 500px;
   height: 739px;
   border-radius: 10px;
+}
+@media screen and (max-width: 800px) {
+  .modal-confirmation {
+    margin-top: 70px;
+  }
 }
 
 .modal-confirmation p {
