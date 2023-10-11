@@ -325,14 +325,11 @@ closeConfirm.forEach((btn) => btn.addEventListener("click", closeModalConfirm));
 // Exit confiirmation modal
 
 function closeModalConfirm() {
-  confirm.style.display = "none";
-  modalbg.style.display = "none";
-  
+  confirm.style.display = "none";  
 }
 
 closeButton.addEventListener("click", closeModalButton);
 
 function closeModalButton() {
   confirm.style.display = "none";
-  modalbg.style.display = "none";
 }
