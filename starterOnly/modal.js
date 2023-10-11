@@ -315,8 +315,6 @@ form.addEventListener("submit", (e) => {
     date.style.border = "none";
     tournaments.style.border = "none";
     confirm.style.display = "flex";
-    modalbg.style.display = "block";
-
   }
 });
 

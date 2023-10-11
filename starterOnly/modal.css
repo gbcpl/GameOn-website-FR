@@ -514,11 +514,12 @@ footer {
   }
   .hero-headline {
     font-size: 40px;
+    font-weight: 500;
     white-space: normal;
   }
   .hero-text {
     width: 90%;
-    font-size: 1.5rem;
+    font-size: 13px;
     margin-left: auto;
     margin-right: auto;
   }
